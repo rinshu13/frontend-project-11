@@ -12,9 +12,9 @@ const clearError = (element) => {
   element.nextElementSibling.textContent = ''
 }
 
-const renderFeeds = (container, feeds, _i18n) => {
-  container.innerHTML = feeds.map((feed) =>
-    `<li><h3>${feed.title}</h3><p>${feed.description}</p></li>`
+const renderFeeds = (container, feeds, __i18n) => {
+  container.innerHTML = feeds.map(feed =>
+    `<li><h3>${feed.title}</h3><p>${feed.description}</p></li>`,
   ).join('')
 }
 
@@ -32,7 +32,6 @@ const renderPosts = (container, posts, readPosts, i18n) => {
     `
   }).join('')
 
-  // Вотчер для кнопок предпросмотра
   container.querySelectorAll('button[data-post-id]').forEach((btn) => {
     btn.removeEventListener('click', handlePreview)
     btn.addEventListener('click', handlePreview)
@@ -40,11 +39,10 @@ const renderPosts = (container, posts, readPosts, i18n) => {
 
   function handlePreview(e) {
     const postId = e.target.dataset.postId
-    const post = posts.find((p) => p.id === postId)
+    const post = posts.find(p => p.id === postId)
     if (post) {
       showModal(post, i18n)
       readPosts.add(postId)
-      // Задержка для рендера класса (если тест ждёт обновления DOM)
       setTimeout(() => {
         const postLink = e.target.closest('.post-item').querySelector('a')
         postLink.classList.remove('fw-bold')
@@ -54,29 +52,29 @@ const renderPosts = (container, posts, readPosts, i18n) => {
   }
 }
 
-const showModal = (post, _i18n) => {
+const showModal = (post, __i18n) => {
   const modal = new bootstrap.Modal(document.getElementById('previewModal'))
   document.getElementById('modalTitle').textContent = post.title
   document.getElementById('modalBody').innerHTML = `<p>${post.description}</p>`
   modal.show()
 }
 
-export const initView = (state, i18n) => {
+export const initView = (state, __i18n) => {
   const watchedState = onChange(state, (path, value) => {
     if (path.startsWith('form.') && path !== 'form.status') {
       const input = document.getElementById('urlInput')
       if (watchedState.form.valid) {
         clearError(input)
       } else if (watchedState.form.error) {
-        renderError(input, i18n.t(watchedState.form.error))
+        renderError(input, __i18n.t(watchedState.form.error))
       }
     } else if (path === 'feeds') {
-      renderFeeds(document.getElementById('feeds'), value, i18n)
+      renderFeeds(document.getElementById('feeds'), value, __i18n)
     } else if (path === 'posts') {
-      renderPosts(document.getElementById('posts'), value, state.readPosts, i18n)
+      renderPosts(document.getElementById('posts'), value, state.readPosts, __i18n)
     } else if (path === 'ui.status' && value === 'success') {
       const badge = document.querySelector('.badge')
-      badge.textContent = i18n.t('rss-success')
+      badge.textContent = __i18n.t('rss-success')
       badge.style.display = 'block'
       setTimeout(() => badge.style.display = 'none', 3000)
     }
@@ -85,7 +83,7 @@ export const initView = (state, i18n) => {
   return watchedState
 }
 
-export const initFormWatcher = (form, state, _i18n) => {
+export const initFormWatcher = (form, state, __i18n) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault()
     const input = document.getElementById('urlInput')
@@ -117,7 +115,7 @@ export const initFormWatcher = (form, state, _i18n) => {
       })
   })
 
-  document.getElementById('urlInput').addEventListener('input', (e) => {
+  document.getElementById('urlInput').addEventListener('input', e => {
     state.form.url = e.target.value.trim()
     state.form.status = 'filling'
     if (state.form.error) state.form.error = null
