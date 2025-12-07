@@ -59,22 +59,22 @@ const showModal = (post, __i18n) => {
   modal.show()
 }
 
-export const initView = (state, __i18n) => {
+export const initView = (state, i18n) => {
   const watchedState = onChange(state, (path, value) => {
     if (path.startsWith('form.') && path !== 'form.status') {
       const input = document.getElementById('urlInput')
       if (watchedState.form.valid) {
         clearError(input)
       } else if (watchedState.form.error) {
-        renderError(input, __i18n.t(watchedState.form.error))
+        renderError(input, i18n.t(watchedState.form.error))
       }
     } else if (path === 'feeds') {
-      renderFeeds(document.getElementById('feeds'), value, __i18n)
+      renderFeeds(document.getElementById('feeds'), value, i18n)
     } else if (path === 'posts') {
-      renderPosts(document.getElementById('posts'), value, state.readPosts, __i18n)
+      renderPosts(document.getElementById('posts'), value, state.readPosts, i18n)
     } else if (path === 'ui.status' && value === 'success') {
       const badge = document.querySelector('.badge')
-      badge.textContent = __i18n.t('rss-success')
+      badge.textContent = i18n.t('rss-success')
       badge.style.display = 'block'
       setTimeout(() => badge.style.display = 'none', 3000)
     }
