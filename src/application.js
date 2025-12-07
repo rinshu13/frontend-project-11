@@ -25,7 +25,7 @@ const parseRSS = (response) => {
 
   const title = doc.querySelector('title')?.textContent || ''
   const description = doc.querySelector('description')?.textContent || ''
-  const items = [...doc.querySelectorAll('item')].map((item) => ({
+  const items = [...doc.querySelectorAll('item')].map(item) => ({
     id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     title: item.querySelector('title')?.textContent || '',
     link: item.querySelector('link')?.textContent || '',
@@ -44,7 +44,7 @@ const normalizeData = (feeds, posts) => {
 const validateUrl = (url, existingFeeds) => {
   return schema.validate(url)
     .then(() => {
-      if (existingFeeds.some((feed) => feed.url === url)) {
+      if (existingFeeds.some(feed => feed.url === url)) {
         throw new Error(i18n.t('rss-exists'))
       }
       return true
@@ -56,7 +56,7 @@ const validateUrl = (url, existingFeeds) => {
 
 const loadFeed = (url) => {
   return axios.get(getProxyUrl(url))
-    .then((response) => parseRSS(response))
+    .then(response => parseRSS(response))
     .catch((err) => {
       if (err.message === 'Network Error') {
         throw new Error(i18n.t('network-error'))
@@ -68,13 +68,13 @@ const loadFeed = (url) => {
 const updateFeeds = (state) => {
   if (state.feeds.length === 0) return
 
-  const promises = state.feeds.map((feed) =>
+  const promises = state.feeds.map(feed =>
     loadFeed(feed.url)
       .then((data) => {
-        const newPosts = data.items.filter((item) => !state.posts.some((p) => p.link === item.link))
-        state.posts.push(...newPosts.map((post) => ({ ...post, feedId: feed.id })))
+        const newPosts = data.items.filter(item => !state.posts.some(p => p.link === item.link))
+        state.posts.push(...newPosts.map(post => ({ ...post, feedId: feed.id })))
       })
-      .catch((err) => console.error('Update error:', err)),
+      .catch(err => console.error('Update error:', err)),
   )
   Promise.all(promises)
     .finally(() => {

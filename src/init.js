@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18next from 'i18next'
 
 export default () => {
   i18next.init({
@@ -23,7 +23,7 @@ export default () => {
         },
       },
     },
-  });
+  })
 
-  return i18next;
-};
+  return i18next
+}
