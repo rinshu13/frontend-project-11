@@ -12,7 +12,7 @@ const clearError = (element) => {
   element.nextElementSibling.textContent = ''
 }
 
-const renderFeeds = (container, feeds, __i18n) => {
+const renderFeeds = (container, feeds) => {
   container.innerHTML = feeds.map(feed =>
     `<li><h3>${feed.title}</h3><p>${feed.description}</p></li>`,
   ).join('')
@@ -52,7 +52,7 @@ const renderPosts = (container, posts, readPosts, i18n) => {
   }
 }
 
-const showModal = (post, __i18n) => {
+const showModal = (post) => {
   const modal = new bootstrap.Modal(document.getElementById('previewModal'))
   document.getElementById('modalTitle').textContent = post.title
   document.getElementById('modalBody').innerHTML = `<p>${post.description}</p>`
@@ -65,14 +65,18 @@ export const initView = (state, i18n) => {
       const input = document.getElementById('urlInput')
       if (watchedState.form.valid) {
         clearError(input)
-      } else if (watchedState.form.error) {
+      } 
+      else if (watchedState.form.error) {
         renderError(input, i18n.t(watchedState.form.error))
       }
-    } else if (path === 'feeds') {
+    } 
+    else if (path === 'feeds') {
       renderFeeds(document.getElementById('feeds'), value, i18n)
-    } else if (path === 'posts') {
+    } 
+    else if (path === 'posts') {
       renderPosts(document.getElementById('posts'), value, state.readPosts, i18n)
-    } else if (path === 'ui.status' && value === 'success') {
+    } 
+    else if (path === 'ui.status' && value === 'success') {
       const badge = document.querySelector('.badge')
       badge.textContent = i18n.t('rss-success')
       badge.style.display = 'block'
@@ -83,7 +87,7 @@ export const initView = (state, i18n) => {
   return watchedState
 }
 
-export const initFormWatcher = (form, state, __i18n) => {
+export const initFormWatcher = (form, state) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault()
     const input = document.getElementById('urlInput')
