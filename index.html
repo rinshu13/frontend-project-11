@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSS Aggregator</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto p-3 position-relative">
+          <h1 class="text-center">RSS агрегатор</h1>
+          <form class="d-flex gap-2 flex-column flex-sm-row" id="rssForm" novalidate>
+            <input aria-label="url" autocomplete="off" class="form-control" id="urlInput" placeholder="https://example.com/rss" required="" type="url" />
+            <button class="h-100 btn btn-primary" type="submit">Добавить</button>
+            <span class="position-absolute top-100 start-50 translate-middle badge rounded-pill bg-danger">example</span>
+          </form>
+          <div class="card border-0 shadow-sm mt-3">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-md-5 border-end feeds-container">
+                  <div class="p-3">
+                    <h2>Фиды</h2>
+                    <ul class="list-unstyled" id="feeds"></ul>
+                  </div>
+                </div>
+                <div class="col-md-7 posts-container">
+                  <div class="p-3">
+                    <h2>Посты <span class="badge bg-primary" id="postsCounter">0</span></h2>
+                    <ul class="list-unstyled" id="posts"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="previewModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle"></h5>
+            <button aria-label="Закрыть" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+          </div>
+          <div class="modal-body" id="modalBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  padding: 20px 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2 {
+  margin-bottom: 1rem;
+}
+
+#feeds li {
+  margin-bottom: 0.5rem;
+}
+
+#posts li {
+  margin-bottom: 0.5rem;
+}
+
+.post-item a {
+  text-decoration: none;
+}
+
+.post-item .btn {
+  margin-left: 0.5rem;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.badge {
+  display: none;
+}
