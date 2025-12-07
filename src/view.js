@@ -65,17 +65,17 @@ export const initView = (state, i18n) => {
       const input = document.getElementById('urlInput')
       if (watchedState.form.valid) {
         clearError(input)
-      } 
+      }
       else if (watchedState.form.error) {
         renderError(input, i18n.t(watchedState.form.error))
       }
-    } 
+    }
     else if (path === 'feeds') {
       renderFeeds(document.getElementById('feeds'), value, i18n)
-    } 
+    }
     else if (path === 'posts') {
       renderPosts(document.getElementById('posts'), value, state.readPosts, i18n)
-    } 
+    }
     else if (path === 'ui.status' && value === 'success') {
       const badge = document.querySelector('.badge')
       badge.textContent = i18n.t('rss-success')
@@ -104,7 +104,7 @@ export const initFormWatcher = (form, state) => {
       .then((data) => {
         const newFeed = { url, ...data, id: `feed-${Date.now()}` }
         state.feeds.push(newFeed)
-        state.posts.push(...data.items.map((post) => ({ ...post, feedId: newFeed.id })))
+        state.posts.push(...data.items.map(post => ({ ...post, feedId: newFeed.id })))
         state.ui.status = 'success'
         state.form.url = ''
         state.form.status = 'filling'
@@ -119,7 +119,7 @@ export const initFormWatcher = (form, state) => {
       })
   })
 
-  document.getElementById('urlInput').addEventListener('input', e => {
+  document.getElementById('urlInput').addEventListener('input', (e) => {
     state.form.url = e.target.value.trim()
     state.form.status = 'filling'
     if (state.form.error) state.form.error = null
