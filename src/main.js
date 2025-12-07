@@ -1,25 +1,25 @@
 // src/main.js
-import './style.css'
-import i18nInstance from './init.js'
-const i18n = i18nInstance()
+import './style.css';
+import i18nInstance from './init.js';
+const i18n = i18nInstance();
 
-import { initView, initFormWatcher } from './view.js'
-import { updateFeeds } from './application.js'
+import { initView, initFormWatcher } from './view.js';
+import { updateFeeds } from './application.js';
 
 const state = {
   form: { url: '', status: 'filling', error: null, valid: false },
   feeds: [],
   posts: [],
   readPosts: new Set(),
-  ui: { status: 'idle' }
-}
+  ui: { status: 'idle' },
+};
 
-const watchedState = initView(state, i18n)
+const watchedState = initView(state, i18n);
 
-initFormWatcher(document.getElementById('rssForm'), watchedState, i18n)  // <-- Передаём i18n
+initFormWatcher(document.getElementById('rssForm'), watchedState, i18n);
 
-document.getElementById('urlInput').focus()
+document.getElementById('urlInput').focus();
 
-updateFeeds(watchedState)
+updateFeeds(watchedState);
 
-console.log('RSS Aggregator initialized')
+console.log('RSS Aggregator initialized');

@@ -7,16 +7,16 @@ yup.setLocale({
   mixed: { required: 'not-empty' },
   string: {
     url: 'invalid-url',
-    min: 'not-empty'
-  }
-});
+    min: 'not-empty',
+  },
+})
 
 const schema = yup.string().url().required()
 
-const getProxyUrl = (url) => `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`
+const getProxyUrl = url => `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`
 
 const parseRSS = (response) => {
-  const parser = new DOMParser();
+  const parser = new DOMParser()
   const doc = parser.parseFromString(response.data.contents, 'application/xml')
   const parseError = doc.querySelector('parsererror')
   if (parseError) {
@@ -29,7 +29,7 @@ const parseRSS = (response) => {
     id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     title: item.querySelector('title')?.textContent || '',
     link: item.querySelector('link')?.textContent || '',
-    description: item.querySelector('description')?.textContent || ''
+    description: item.querySelector('description')?.textContent || '',
   }))
   return { title, description, items }
 }
@@ -37,9 +37,9 @@ const parseRSS = (response) => {
 const normalizeData = (feeds, posts) => {
   return {
     feeds: feeds.map((feed, index) => ({ ...feed, id: `feed-${index}` })),
-    posts: posts.map((post, index) => ({ ...post, id: `post-${index}`, feedId: post.feedId }))
-  };
-};
+    posts: posts.map((post, index) => ({ ...post, id: `post-${index}`, feedId: post.feedId })),
+  }
+}
 
 const validateUrl = (url, existingFeeds) => {
   return schema.validate(url)
@@ -51,8 +51,8 @@ const validateUrl = (url, existingFeeds) => {
     })
     .catch((err) => {
       throw err
-    });
-};
+    })
+}
 
 const loadFeed = (url) => {
   return axios.get(getProxyUrl(url))
@@ -66,7 +66,7 @@ const loadFeed = (url) => {
 }
 
 const updateFeeds = (state) => {
-  if (state.feeds.length === 0) return;
+  if (state.feeds.length === 0) return
 
   const promises = state.feeds.map((feed) =>
     loadFeed(feed.url)
@@ -74,7 +74,7 @@ const updateFeeds = (state) => {
         const newPosts = data.items.filter((item) => !state.posts.some((p) => p.link === item.link))
         state.posts.push(...newPosts.map((post) => ({ ...post, feedId: feed.id })))
       })
-      .catch((err) => console.error('Update error:', err))
+      .catch((err) => console.error('Update error:', err)),
   )
   Promise.all(promises)
     .finally(() => {
@@ -87,5 +87,5 @@ export {
   loadFeed,
   updateFeeds,
   normalizeData,
-  parseRSS
+  parseRSS,
 }

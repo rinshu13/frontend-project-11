@@ -1,4 +1,4 @@
-import i18next from 'i18next'
+import i18next from 'i18next';
 
 export default () => {
   i18next.init({
@@ -19,11 +19,11 @@ export default () => {
           'posts-counter': '{{count}} {{count}}',
           'add-button': 'Добавить',
           'url-placeholder': 'https://example.com/rss',
-          'modal-close': 'Закрыть'
-        }
-      }
-    }
-  })
+          'modal-close': 'Закрыть',
+        },
+      },
+    },
+  });
 
-  return i18next
-}
+  return i18next;
+};
