@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import axios from 'axios'
+
 import i18nInstance from './init.js'
 const i18n = i18nInstance()
 
@@ -25,7 +26,7 @@ const parseRSS = (response) => {
 
   const title = doc.querySelector('title')?.textContent || ''
   const description = doc.querySelector('description')?.textContent || ''
-  const items = [...doc.querySelectorAll('item')].map(item) => ({
+  const items = [...doc.querySelectorAll('item')].map(item => ({  // <-- Добавлена стрелка => после item
     id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     title: item.querySelector('title')?.textContent || '',
     link: item.querySelector('link')?.textContent || '',
