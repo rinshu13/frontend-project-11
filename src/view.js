@@ -27,7 +27,7 @@ const renderPosts = (container, posts, readPosts, i18n) => {
     const isRead = readPosts.has(post.id);
     return `
       <li class="post-item">
-        <a href="${post.link}" class="${isRead ? 'fw-normal' : 'fw-bold'} text-body" target="_blank">${post.title}</a>
+        <a href="${post.link}" class="${isRead ? 'fw-normal' : 'fw-bold'}" target="_blank">${post.title}</a> <!-- Убрали text-body -->
         <button class="btn btn-primary btn-sm" data-post-id="${post.id}">${i18n.t('view')}</button>
       </li>
     `;
@@ -58,8 +58,8 @@ const showModal = (post, i18n) => {
 
 export const initView = (state, i18n) => {
   const watchedState = onChange(state, (path, value) => {
-    console.log('onChange:', path, value);  // ДЕБАГ
-    if (path.startsWith('form.') && path !== 'form.status') {  // Рендер для form (кроме status, чтобы не дублировать)
+    console.log('onChange:', path, value);  // ДЕБАГ (удали после тестов)
+    if (path.startsWith('form.') && path !== 'form.status') {  // Рендер для form (кроме status)
       const input = document.getElementById('urlInput');
       if (watchedState.form.valid) {
         clearError(input);
@@ -81,16 +81,16 @@ export const initView = (state, i18n) => {
   return watchedState;
 };
 
-export const initFormWatcher = (form, state, i18n) => {  // <-- Добавили i18n для рендера в handler
+export const initFormWatcher = (form, state, i18n) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const input = document.getElementById('urlInput');
     const url = input.value.trim();
     if (!url) return;
-    console.log('Submit URL:', url);
+    console.log('Submit URL:', url);  // ДЕБАГ (удали после тестов)
     state.form.url = url;
-    state.form.status = 'validating';  // Для UI (если нужно spinner, но пока нет)
-    console.log('Validating URL:', url);  // ДЕБАГ
+    state.form.status = 'validating';
+    console.log('Validating URL:', url);
     validateUrl(url, state.feeds)
       .then(() => {
         console.log('URL valid');
@@ -106,7 +106,7 @@ export const initFormWatcher = (form, state, i18n) => {  // <-- Добавили
         state.ui.status = 'success';
         state.form.url = '';
         state.form.status = 'filling';
-        input.value = '';  // Очистка DOM
+        input.value = '';
         input.focus();
       })
       .catch((err) => {
