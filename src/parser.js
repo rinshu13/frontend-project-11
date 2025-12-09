@@ -13,7 +13,7 @@ const parseRSS = (response) => {
     id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     title: item.querySelector('title')?.textContent || '',
     link: item.querySelector('link')?.textContent || '',
-    description: item.querySelector('description')?.textContent || ''
+    description: item.querySelector('description')?.textContent || '',
   }))
 
   return { title, description, items }

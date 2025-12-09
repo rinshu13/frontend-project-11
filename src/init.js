@@ -7,8 +7,8 @@ export default () => {
     lng: 'ru',
     debug: false,
     resources: {
-      ru: ru
-    }
+      ru: ru,
+    },
   })
 
   return i18next

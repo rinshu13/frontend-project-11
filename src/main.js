@@ -21,4 +21,3 @@ initFormWatcher(document.getElementById('rssForm'), watchedState, i18n)
 document.getElementById('urlInput').focus()
 
 updateFeeds(watchedState)
-

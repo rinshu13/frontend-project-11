@@ -1,10 +1,10 @@
-import * as yup from 'yup';
-import axios from 'axios';
+import * as yup from 'yup'
+import axios from 'axios'
 
-import i18nInstance from './init.js';
-const i18n = i18nInstance();
+import i18nInstance from './init.js'
+const i18n = i18nInstance()
 
-import parseRSS from './parser.js';
+import parseRSS from './parser.js'
 
 yup.setLocale({
   mixed: { required: 'not-empty' },

@@ -12,6 +12,6 @@ export default {
     'posts-counter': '{{count}}',
     'add-button': 'Добавить',
     'url-placeholder': 'https://example.com/rss',
-    'modal-close': 'Закрыть'
-  }
+    'modal-close': 'Закрыть',
+  },
 }
