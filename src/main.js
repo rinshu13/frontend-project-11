@@ -22,4 +22,3 @@ document.getElementById('urlInput').focus()
 
 updateFeeds(watchedState)
 
-console.log('RSS Aggregator initialized')
